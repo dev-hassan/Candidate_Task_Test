@@ -5,3 +5,8 @@ public class RegularExpressions
     public static string LinkedInProfileRegExpression = @"^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(pub|in|profile)";
     public static string GithubProfileRegExpression = @"^(http(s)?:\/\/)?([\w]+\.)?github\.com\/([A-Za-z0-9])";
 }
+
+public class SessionKeys
+{
+    public static string CandidatesCachedDB = "CandidatesCachedDB";
+}
