@@ -1,4 +1,5 @@
 ﻿using Candidate_Test_Task.Application.Common.Interfaces;
+using Candidate_Test_Task.Infrastructure.Files;
 using Candidate_Test_Task.Infrastructure.Identity;
 using Candidate_Test_Task.Infrastructure.Persistence;
 using Candidate_Test_Task.Infrastructure.Persistence.Interceptors;
@@ -42,11 +43,13 @@ public static class ConfigureServices
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
+        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();
 
-        services.AddAuthorization();
+        services.AddAuthorization(options =>
+            options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
 
         services.AddHttpContextAccessor();
         services.AddHealthChecks();
