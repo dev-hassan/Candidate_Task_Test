@@ -1,11 +1,12 @@
 ﻿using Candidate_Test_Task.Application.CandidateProfile.Queries.GetProfiles;
 using Candidate_Test_Task.Application.Common.Interfaces;
+using Candidate_Test_Task.Application.Common.Models;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Candidate_Test_Task.Application.CandidateProfile.Commands.CreateUpdateProfile;
-public record CreateUpdateProfileCommand : IRequest<bool>
+public record CreateUpdateProfileCommand : IRequest<Result>
 {
     public string FirstName { get; init; }
     public string LastName { get; init; }
@@ -17,7 +18,7 @@ public record CreateUpdateProfileCommand : IRequest<bool>
     public string Comment { get; init; }
 }
 
-public class CreateUpdateProfileCommandHandler : IRequestHandler<CreateUpdateProfileCommand, bool>
+public class CreateUpdateProfileCommandHandler : IRequestHandler<CreateUpdateProfileCommand, Result>
 {
     private readonly ICsvFileBuilder _csvFileBuilder;
     private readonly IConfiguration _configuration;
@@ -30,7 +31,7 @@ public class CreateUpdateProfileCommandHandler : IRequestHandler<CreateUpdatePro
         _logger = logger;
     }
 
-    public async Task<bool> Handle(CreateUpdateProfileCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateUpdateProfileCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -81,8 +82,8 @@ public class CreateUpdateProfileCommandHandler : IRequestHandler<CreateUpdatePro
         catch (Exception ex)
         {
             _logger.Log(LogLevel.Error, ex.Message);
-            return false;
+            return Result.Failure(new List<string>() { ex.Message });
         }
-        return true;
+        return Result.Success();
     }
 }

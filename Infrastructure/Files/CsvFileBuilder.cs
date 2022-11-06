@@ -36,7 +36,8 @@ public class CsvFileBuilder : ICsvFileBuilder
     public async Task<IEnumerable<CandidateProfileDto>> GetCandidateProfiles()
     {
         var candidateProfiles = new List<CandidateProfileDto>();
-        var csvFilePath =Path.Combine(Directory.GetCurrentDirectory(), _configuration.GetValue<string>("csvFilePath"));
+        var csvPath = _configuration.GetValue<string>("csvFilePath");
+        var csvFilePath = $"{Path.Combine(Directory.GetCurrentDirectory())}//{csvPath}";
         var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             Encoding = Encoding.UTF8, // Our file uses UTF-8 encoding.
