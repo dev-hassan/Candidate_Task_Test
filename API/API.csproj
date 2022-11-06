@@ -9,10 +9,20 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
-
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="Candidate_Test_Task.Application.IntegrationTests" />
+    </ItemGroup>
+    
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <None Update="Data\candidateProfiles.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 using API.Services;
 using Candidate_Test_Task.Application.Common.Interfaces;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
